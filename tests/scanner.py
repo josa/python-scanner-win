@@ -8,6 +8,7 @@ import wx
 from simple_base import TwainBase
 
 import traceback, sys
+import Image
 
 ID_EXIT=102
 ID_OPEN_SCANNER=103
@@ -78,7 +79,10 @@ class MainFrame(wx.Frame, TwainBase):
         return self.AcquireByFile()
 
     def DisplayImage(self, ImageFileName):
-        print ImageFileName
+        im = Image.open(ImageFileName)
+        im.save("SCANNER_windows_and_python.jpg", "JPEG", quality=95)
+        
+        
         bmp = wx.Image(ImageFileName, wx.BITMAP_TYPE_BMP).ConvertToBitmap()
         self.bmpImage.SetBitmap(bmp)
         self.scrolledWindow1.maxWidth = bmp.GetWidth()
